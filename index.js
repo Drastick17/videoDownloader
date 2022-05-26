@@ -29,22 +29,32 @@ app.get('/video', (req, res) => {
 //Get video INFO
 app.post('/video', (req, res) => {
   const {url} = req.query
-  console.log(url)
   let VideoData = {}
-  if(ytdl.validateURL(url)){
-    ytdl.getInfo(url).then(info => {
-
-      VideoData = {
-        iframe   : info.videoDetails.embed.iframeUrl,
-        url      : info.videoDetails.video_url,
-        title    : info.videoDetails.title,
-        duration : (info.videoDetails.lengthSeconds/60).toFixed(2)
-      }
-      res.status(200).send(JSON.stringify(VideoData))})
-  }else{
-    console.log('INVALID URL')
+  try{
+    if(ytdl.validateURL(url)){
+      ytdl.getInfo(url).then(info => {
+        let formats = {}
+        info.formats.map(format => {formats[format.quality] = {
+          quality : format.qualityLabel,
+          format  : format.container,
+          itag : format.itag
+        }} )
+  
+        formats = Object.keys(formats).map(format =>formats[format])
+        formats = formats.filter(format => format.format === 'mp4')
+        VideoData = {
+          iframe   : info.videoDetails.embed.iframeUrl,
+          url      : info.videoDetails.video_url,
+          title    : info.videoDetails.title,
+          duration : (info.videoDetails.lengthSeconds/60).toFixed(2),
+          qualities: formats
+        }
+        res.status(200).send(JSON.stringify(VideoData))})
+    }
+  }catch(e){
+    res.send({error:'Error video no econtrado'})
   }
-
+  
 })
 
 

@@ -7,12 +7,6 @@
   margin: 0;
 }
 
-body{
-  width: 100vw;
-  min-height: 100vh;
-  background-image: linear-gradient(to bottom, #ff0001, #ff4e01, #ff7113, #ff8d2b, #ffa644, #ffae4a, #ffb550, #ffbd57, #ffb748, #ffb237, #ffac24, #ffa600);
-}
-
 .header{
   width: 100%;
   height: 4rem;
@@ -20,13 +14,16 @@ body{
   justify-content: space-between;
   align-items: center;
   padding:0 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .logo{
   color: #fff;
   display: flex;
-  position: relative;
   justify-content: center;
+  position: relative;
   align-items: center;
   font-weight: 500;
   gap: 0.25rem;
@@ -52,17 +49,18 @@ figcaption::after{
 
 .container{
   width: 100vw;
-  height: 100%;
-  position: absolute;
+  min-height: 100vh;
+  position: relative;
   top: 0;
   left: 0;
-  display: grid;
-  place-content: center;
+  padding: 1rem 2rem;
+  background-image: linear-gradient(to bottom, #ff0001, #ff4e01, #ff7113, #ff8d2b, #ffa644, #ffae4a, #ffb550, #ffbd57, #ffb748, #ffb237, #ffac24, #ffa600);
 }
 
 .URL{
-  width: 75vw;
+  width: 95%;
   padding: 0.25rem;
+  position: relative;
   line-height: 1.5;
   margin:1.5rem 0;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -71,13 +69,19 @@ figcaption::after{
 
 .URL:focus{ outline: none; }
 
+.info{  display: flex;  }
+
 .box{
+  width: 100%;
+  min-height: 450px;
+  margin-top: 4.5rem;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 0.5rem;
+}
+
+.details{
+  display: grid;
+  place-content: center;
 }
 /* 
 .box::before{
@@ -104,10 +108,7 @@ figcaption::after{
   display: none;
 }
 
-.info{
-  display: inline-block;
-  vertical-align: middle;
-}
+
 
 .video iframe{
   width: 100%;
@@ -185,10 +186,11 @@ figcaption::after{
 }
 
 .send{
+  width: 3%;
   background:transparent;
+  margin: 0 1%;
   font-size: 1rem;
   border: none;
-  margin: 0 5px;
   cursor: pointer;
   color:rgb(224, 222, 222)
 }
@@ -204,12 +206,12 @@ figcaption::after{
 }
 
 @media (min-width:600px) {
-  .URL{ width: 50vw; }
+  .URL{ width: 100%; }
   .video iframe{ height: 200px;}
 }
 
 @media (min-width: 1000px) {
-  .video{ width: 50vw; }
+  .video{ width: 100%; }
   .video iframe{ height: 250px;}
   .title{ font-size: 1.4rem;}
   .form{ flex-direction: row;}
