@@ -177,6 +177,7 @@ figcaption::after{
   border: none;
 }
 
+.download a{color:#fff; text-decoration: none; font-size: 15px;}
 .download:hover{
   background-color: #ff0001;
 }
