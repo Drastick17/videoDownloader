@@ -18,6 +18,7 @@ const downloadVideo = async (req, res) => {
 
   const download = ytdl(url, {
     filter: (format) => format.itag === Number(itag),
+    format: 'mp4'
   })
   
   let contentLenght = 0
@@ -98,7 +99,7 @@ const getVideo = async (req, res) => {
       return
     }
 
-    const { formats: videoFormats, videoDetails } = await ytdl.getInfo(url);
+    const { formats: videoFormats, videoDetails } = await ytdl.getInfo(url,{filter:'videoandaudio'});
 
     videoFormats.map(
       ({ quality, qualityLabel, container, itag, contentLength }) => {
