@@ -217,3 +217,15 @@ figcaption::after{
   .title{ font-size: 1.4rem;}
   .form{ flex-direction: row;}
 }
+
+.modal{
+  background: #fff;
+  position: fixed;
+  top:50%;
+  left:50%;
+  width: 100%;
+  max-width: 300px;
+  transform: translate(-50%,-50%);
+  z-index: 11;
+
+}

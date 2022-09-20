@@ -49,14 +49,15 @@ async function downloadVideo(e) {
   e.preventDefault();
   const { url, qualities } = e.target;
   //window.location.replace(`${baseURL}/download?url=${url.value}&&itag=${qualities.value}`)
-  content.innerHTML+= "<p>Su video se esta descargando, espere porfavor</p>"
+  content.innerHTML+= `<div class="modal">Su video se esta descargando, espere porfavor</div>`
+
   const res = await fetch(`${baseURL}/download?url=${url.value}&&itag=${qualities.value}`, {
   method: "GET",
   });
   const video = await res.blob()
   console.log(video)
-  download(video)
-  //content.innerHTML= ""
+  await download(video)
+  content.innerHTML= ""
 }
 
 inputURL.addEventListener("keyup", (e) => {

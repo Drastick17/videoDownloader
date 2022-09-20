@@ -2,7 +2,6 @@ const ytdl = require("ytdl-core");
 const { rmEmoji, rmEspecialsCharacters } = require("../utils.js");
 //const MemoryStream = require('memorystream')
 
-
 //const ms = new MemoryStream(null,);
 
 const downloadVideo = async (req, res) => {
@@ -14,35 +13,32 @@ const downloadVideo = async (req, res) => {
 
   videoInfo = info.formats.filter((format) => format.itag === Number(itag));
 
-
-
   const download = ytdl(url, {
     filter: (format) => format.itag === Number(itag),
-    format: 'mp4'
-  })
-  
-  let contentLenght = 0
-  let video = []
+    format: "mp4",
+  });
 
-  download.on('data', (chunk) =>{
-    contentLenght += chunk.length
-    video.push(chunk)
-  })
+  let contentLenght = 0;
+  let video = [];
 
-  download.on('end', function() {
+  download.on("data", (chunk) => {
+    contentLenght += chunk.length;
+    video.push(chunk);
+  });
+
+  download.on("end", function () {
     let buffer = Buffer.concat(video);
     console.log(title);
-    res.setHeader("Content-Length", contentLenght)
-    res.setHeader("Content-Type", videoInfo[0].mimeType)
+    res.setHeader("Content-Length", contentLenght);
+    res.setHeader("Content-Type", videoInfo[0].mimeType);
     res.send(buffer);
-});
+  });
   // .on('end', () =>{
   //   res.setHeader("Content-Length", contentLenght)
   //   res.setHeader("Content-Type", videoInfo[0].mimeType)
   //   console.log("finish")
   //   stream.pipe(res)
   // })
-  
 
   // stream.on('data', (chunk) =>{
   //   console.log(chunk)
@@ -58,7 +54,6 @@ const downloadVideo = async (req, res) => {
   // //   stream.pipe(res)
   // // })
 
-
   // ms.on('data', (chunk) =>{
   //   console.log(chunk)
   //   contentLenght += chunk.length
@@ -72,7 +67,6 @@ const downloadVideo = async (req, res) => {
   //   fs.createReadStream()
   // })
 
-
   // // res.writeHead(200, {
   // //       //"Content-Length": size,
   // //       "Content-Type": videoInfo[0].mimeType,
@@ -80,14 +74,6 @@ const downloadVideo = async (req, res) => {
   // //     });
 
   // // download.pipe(createWriteStream(`${title}.mp4`))
-
- 
-
-
-
-
-
-
 };
 
 const getVideo = async (req, res) => {
@@ -96,12 +82,13 @@ const getVideo = async (req, res) => {
 
   try {
     if (!ytdl.validateURL(url)) {
-      return
+      return;
     }
 
-    const { formats: videoFormats, videoDetails } = await ytdl.getInfo(url,{filter:'videoandaudio'});
+    const { formats: videoFormats, videoDetails } = await ytdl.getInfo(url);
+    const formatsMp4 = await ytdl.filterFormats(videoFormats, "videoandaudio");
 
-    videoFormats.map(
+    formatsMp4.map(
       ({ quality, qualityLabel, container, itag, contentLength }) => {
         formats[quality] = {
           quality: qualityLabel,
@@ -112,9 +99,7 @@ const getVideo = async (req, res) => {
       }
     );
 
-    formats = Object.keys(formats)
-      .map((format) => formats[format])
-      .filter((format) => format.format === "mp4");
+    formats = Object.keys(formats).map((format) => formats[format]);
 
     res.json({
       iframe: videoDetails.embed.iframeUrl,
