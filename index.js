@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-const express = require("express");
 const ytdl = require("ytdl-core");
 const path = require("path");
+const express = require("express");
 const cors = require("cors");
 const {
   createWriteStream,
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3002;
 const app = express();
 app.use(cors());
 
-app.use(express.static("public"));
+app.use(express.static("../public"));
 app.use(express.json());
 
 const PATH = (file) => path.join(`${__dirname}/${file}`);
@@ -42,22 +42,23 @@ app.get("/download", async (req, res) => {
 
   download
     .pipe(createWriteStream(path.resolve(__dirname, `./videos/${title}.mp4`)))
-    .on("finish", () => {
-      const { size } = statSync(
-        path.resolve(__dirname, `./videos/${title}.mp4`)
-      );
-      res.writeHead(200, {
-        "Content-Length": size,
-        "Content-Type": videoInfo[0].mimeType,
-        //"Content-Disposition": `attachment;  filename="${title}.mp4"`,
-      });
-      createReadStream(path.resolve(__dirname, `./videos/${title}.mp4`))
-        .pipe(res)
-        .on("finish", () => {
-          unlinkSync(path.resolve(__dirname, `./videos/${title}.mp4`));
-          res.end();
-        });
-    });
+ 
+    // .on("finish", () => {
+    //   const { size } = statSync(
+    //     path.resolve(__dirname, `./videos/${title}.mp4`)
+    //   );
+    //   res.writeHead(200, {
+    //     "Content-Length": size,
+    //     "Content-Type": videoInfo[0].mimeType,
+    //     //"Content-Disposition": `attachment;  filename="${title}.mp4"`,
+    //   });
+    //   createReadStream(path.resolve(__dirname, `./videos/${title}.mp4`))
+    //     .pipe(res)
+    //     .on("finish", () => {
+    //       unlinkSync(path.resolve(__dirname, `./videos/${title}.mp4`));
+    //       res.end();
+    //     });
+    // });
 
   // ytdl.getInfo(url,{format: 'mp4'}).then(info =>{
   //   let title = rmEspecialsC(rmEmoji(info.videoDetails.title))

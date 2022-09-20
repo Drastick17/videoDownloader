@@ -38,7 +38,7 @@ function download(blob) {
   const a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
-  a.download = $(".title").innerHTML;
+  a.download = $(".title").innerHTML+".mp4";
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -56,7 +56,7 @@ async function downloadVideo(e) {
   const video = await res.blob()
   console.log(video)
   download(video)
-  content.innerHTML= ""
+  //content.innerHTML= ""
 }
 
 inputURL.addEventListener("keyup", (e) => {
