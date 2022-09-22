@@ -47,6 +47,29 @@ figcaption::after{
   font-size: 30px;
 }
 
+.menu{
+  display: flex;
+  gap:1rem;
+  flex-direction: row;
+}
+
+.menu > li,a{
+  text-decoration: none;
+  list-style: none;
+}
+
+.menu li{ background-color:  #fff;  border-radius: 4px; transition: all 0.3s ease;}
+.menu li:hover{ transform: scale(1.05);}
+.menu li a {
+  font-weight: 400;
+  padding: 1rem;
+  line-height: 2rem;
+}
+
+.menu li a:active {
+  background-color: red;
+}
+
 .container{
   width: 100vw;
   min-height: 100vh;
@@ -69,7 +92,9 @@ figcaption::after{
 
 .URL:focus{ outline: none; }
 
-.info{  display: flex;  }
+.info{ 
+  flex-basis: calc(100% - 60px); 
+}
 
 .box{
   width: 100%;
@@ -112,7 +137,7 @@ figcaption::after{
 
 .video iframe{
   width: 100%;
-  height: 125px;
+  height: 225px;
 }
 
 
@@ -132,13 +157,49 @@ figcaption::after{
   margin: 0 0 1.5rem 0;
 }
 
+.inputSearch{
+  height: 3.5rem;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.audioContainer{
+  background-color: #fff;
+  padding: 0.5rem;
+  margin: 1rem 1rem 0.5rem 1rem;
+  border-radius: 4px;
+  display: flex;
+  gap:2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.audioInfo{
+  flex-basis: 90%;
+  overflow-x: hidden;
+}
+
+.audioContainer button{
+  font-size: 2rem;
+  padding: 0.5rem;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.audioContainer button:hover{
+  cursor:pointer;
+  transform: scale(1.05);
+}
+
 .loader {
   border: 5px solid #fff;
   border-top: 5px solid #ccc; 
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 
@@ -187,13 +248,15 @@ figcaption::after{
 }
 
 .send{
-  width: 3%;
+  display: block;
+  width: 50px;
+  height: 50px;
   background:transparent;
-  margin: 0 1%;
+  text-align: center;
   font-size: 1rem;
   border: none;
   cursor: pointer;
-  color:rgb(224, 222, 222)
+  color:rgb(224, 222, 222);
 }
 
 .send:hover{
@@ -208,7 +271,7 @@ figcaption::after{
 
 @media (min-width:600px) {
   .URL{ width: 100%; }
-  .video iframe{ height: 200px;}
+  .video iframe{ height: 300px;}
 }
 
 @media (min-width: 1000px) {
@@ -227,5 +290,15 @@ figcaption::after{
   max-width: 300px;
   transform: translate(-50%,-50%);
   z-index: 11;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 4px;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+}
 
+.progress{
+  width: 100%;
+  height: 1.25rem;
+  display: block;
+  margin: 0 auto;
 }
